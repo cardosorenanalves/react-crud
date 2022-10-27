@@ -8,7 +8,7 @@ Para instalar esse projeto, é necessário clonar o projeto do GitHub num diret�
 
 ```
 cd "diretorio de sua preferencia"
-git clone https://github.com/condessalovelace/mavenquickstart
+git clone https://github.com/cardosorenanalves/react-crud.git
 ```
 e logo após dar o comando para instalar as suas dependências:
 
