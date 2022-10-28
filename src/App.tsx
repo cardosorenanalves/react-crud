@@ -10,10 +10,8 @@ function App() {
 
   return (
     <>
-   <BrowserRouter>
    <Header/>
     <MainRoutes/>
-   </BrowserRouter>
    <ToastContainer/>
    </>
   )
