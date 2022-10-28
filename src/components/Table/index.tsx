@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,9 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {BsFillTrashFill} from 'react-icons/bs'
+import {AiFillEdit} from 'react-icons/ai'
 import { User } from '../../Pages/Listar';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { EditModal } from '../EditModal';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,10 +39,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export interface Props{
     users: User[];
     deleteUser: React.Dispatch<React.SetStateAction<boolean>>;
+    editUser: React.Dispatch<React.SetStateAction<boolean>>; 
 }
 
-export default function CustomizedTables({users, deleteUser}: Props) {
+export default function CustomizedTables({users, deleteUser, editUser}: Props) {
   const baseURL = 'http://localhost:8080/clientes'
+  const [userCode, setUserCode] = useState<number>(0)
+  const [openModal, setOpenModal] = useState<boolean>(false)
 
   function handleExcludeUser(id: number){
     axios
@@ -51,12 +57,19 @@ export default function CustomizedTables({users, deleteUser}: Props) {
       })
       deleteUser(true);
   }
+
+  function handleEditUser(id: number){
+    setUserCode(id)
+    setOpenModal(true)
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome de Usuário</StyledTableCell>
+            <StyledTableCell align="center">Editar Usuário</StyledTableCell>
             <StyledTableCell align="center">Excluir Usuário</StyledTableCell>
      
           </TableRow>
@@ -68,17 +81,31 @@ export default function CustomizedTables({users, deleteUser}: Props) {
                 {item.name}
               </StyledTableCell>
               <StyledTableCell align="center">
+                <AiFillEdit
+                size={25}
+                style={{cursor: 'pointer'}}
+                onClick={()=> handleEditUser(item.id)}
+                />
+                </StyledTableCell>
+              <StyledTableCell align="center">
                 <BsFillTrashFill
                 size={25}
                 style={{cursor: 'pointer'}}
                 onClick={()=> handleExcludeUser(item.id)}
                 />
                 </StyledTableCell>
+              
        
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
+      <EditModal
+      userCode={userCode}
+      isOpenProps={openModal}
+      onCloseProps={()=> setOpenModal(false)}
+      editUser={editUser}
+      />
     </TableContainer>
   );
 }
