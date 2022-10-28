@@ -17,11 +17,21 @@ align-items: center;
 padding: 1rem;
 `;
 
-export const  Title = styled.text`
+export const Title = styled.text`
     margin-top: 8%;
     font-size: 30px;
     margin-bottom: 5%;
 `;
+
+export const SubTitle = styled.text`
+   margin-top: 20px;
+ margin-bottom: 30px;
+ font-size: 23px;
+ color: #D6DBD2;
+ text-align: center;
+`;
+
+
 
 export const  DivTable = styled.div`
     width: 100%;
