@@ -6,6 +6,7 @@ import {
     Title,
     DivTable,
     Content,
+    SubTitle,
 } from './styles'
 
 export interface User{
@@ -48,13 +49,18 @@ export function Listar(){
         <Title>
             Listagem de Usuários
         </Title>
-        <DivTable>
+        { users.length > 0 ?
+        <DivTable>  
             <CustomizedTables 
             users={users}
             deleteUser={setDeletUser}
             editUser={setEditUser}
-            />
-        </DivTable>
+            />     
+        </DivTable>:
+        <SubTitle>
+        Nenhum usuário encontrado, Cadastre um novo usuário!
+        </SubTitle>
+        }
         </Content>
        </Container>
     )
